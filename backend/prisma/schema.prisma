@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  // Using default output directory
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Vessel {
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(100)
+  imoNumber   Int       @unique
+  vesselType  Int
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  emissions   EmissionLog[]
+  
+  @@map("vessels")
+}
+
+model EmissionLog {
+  id            Int       @id @default(autoincrement())
+  vesselId      Int
+  vessel        Vessel    @relation(fields: [vesselId], references: [id])
+  logId         BigInt
+  fromUtc       DateTime
+  toUtc         DateTime
+  met2wco2      Float
+  aet2wco2      Float
+  bot2wco2      Float
+  vrt2wco2      Float
+  totT2wco2     Float
+  mew2wco2e     Float
+  aew2wco2e     Float
+  bow2wco2e     Float
+  vrw2wco2e     Float
+  totW2wco2     Float
+  mesox         Float
+  aesox        Float
+  bosox        Float
+  vrsx         Float
+  totSox       Float
+  menox        Float
+  aenox        Float
+  bonox        Float
+  vrnox        Float
+  totNox       Float
+  mepm         Float
+  aepm         Float
+  bopm         Float
+  vrpm         Float
+  totPm        Float
+  mech4        Float
+  aech4        Float
+  boch4        Float
+  vrch4        Float
+  totCh4       Float
+  men2o        Float
+  aen2o        Float
+  bon2o        Float
+  vrn2o        Float
+  totN2o       Float
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  
+  @@map("emission_logs")
+}
+
+model PPReference {
+  id          Int       @id @default(autoincrement())
+  rowId       Int       @unique
+  category    String    @db.VarChar(10)
+  vesselType  Int
+  size        String    @db.VarChar(20)
+  traj        String    @db.VarChar(20)
+  a           Float
+  b           Float
+  c           Float
+  d           Float
+  e           Float
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  @@map("pp_references")
+}

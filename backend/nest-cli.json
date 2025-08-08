@@ -1,0 +1,11 @@
+{
+    "collection": "@nestjs/schematics",
+    "tsConfigPath": "tsconfig.build.json",
+    "sourceRoot": "src",
+    "entryFile": "main",
+    "compilerOptions": {
+      "assets": ["**/*.graphql"],
+      "watchAssets": true,
+      "deleteOutDir": false
+    }
+  }
