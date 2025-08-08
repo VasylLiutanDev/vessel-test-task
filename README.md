@@ -79,7 +79,8 @@ The project consists of two main components:
 
 5. **Open your browser**
    - Frontend will be available at: http://localhost:3001
-   - API will be available at: http://localhost:3000
+   - API will be available at: http://localhost:3003
+   - Documentation will be available at: http://localhost:3003/api
 
 ## 📁 Project Structure
 
